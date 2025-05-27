@@ -30,11 +30,11 @@ Proyek ini menggunakan **Transfer Learning** dengan arsitektur **MobileNetV2** u
 
 ### Akurasi & Kerugian
 
-![Akurasi dan Kerugian](akurasiloss.png)
+![Akurasi dan Loss](akurasiloss.png)
 
 ### Matriks Kebingungan
 
-![Matriks Kebingungan](confmatrix.png)
+![Confusion Matrix](confmatrix.png)
 
 ## 🔍 Ringkasan Evaluasi
 
