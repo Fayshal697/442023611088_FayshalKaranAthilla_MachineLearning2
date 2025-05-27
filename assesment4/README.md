@@ -45,18 +45,3 @@ Proyek ini menggunakan **Transfer Learning** dengan arsitektur **MobileNetV2** u
 | Kesalahan Klasifikasi | 51 untuk setiap kelas |
 
 **Catatan**: Meskipun akurasinya tinggi, kebingungan yang seimbang menunjukkan potensi bias model atau kesamaan kelas dalam fitur visual.
-
-## 🧠 Peningkatan di Masa Depan
-
-- Tambahkan data dan augmentasi yang lebih beragam
-- Terapkan fine-tuning pada lapisan MobileNetV2 yang lebih dalam
-- Coba arsitektur lain seperti EfficientNet atau ResNet
-- Gunakan Grad-CAM untuk interpretabilitas model
-
-## 🛠 Cara Menjalankan
-
-1. Kloning repo ini
-2. Siapkan kumpulan data (dalam folder `data/train` dan `data/val`)
-3. Instal dependensi:
-```bash
-pip install tensorflow matplotlib scikit-learn
