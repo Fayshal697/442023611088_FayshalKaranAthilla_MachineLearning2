@@ -36,12 +36,20 @@ Proyek ini menggunakan **Transfer Learning** dengan arsitektur **MobileNetV2** u
 
 ![Confusion Matrix](confmatrix.png)
 
-## 🔍 Ringkasan Evaluasi
+## 📚 Libraries Used
 
-| Metrik | Nilai |
-|----------------|---------------|
-| Akurasi Latih | ~100% |
-| Akurasi Val | ~100% |
-| Kesalahan Klasifikasi | 51 untuk setiap kelas |
+The following Python libraries were used in this project:
 
-**Catatan**: Meskipun akurasinya tinggi, kebingungan yang seimbang menunjukkan potensi bias model atau kesamaan kelas dalam fitur visual.
+- `TensorFlow` (including Keras) – deep learning framework
+- `NumPy` – array operations
+- `Matplotlib` – visualization of training history and confusion matrix
+- `scikit-learn` – for confusion matrix and evaluation metrics
+- `os` – for handling file system operations
+- `shutil` – for file movement and organization
+- `PIL (Pillow)` – image processing
+- `random` – for data shuffling
+
+To install the required libraries:
+```bash
+pip install tensorflow matplotlib scikit-learn pillow
+
