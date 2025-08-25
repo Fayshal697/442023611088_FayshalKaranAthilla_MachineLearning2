@@ -106,7 +106,7 @@ if __name__ == "__main__":
     DEC_EMB_DIM = 256
     HID_DIM = 512
     DROPOUT = 0.3
-    N_EPOCHS = 50
+    N_EPOCHS = 10
 
     encoder = Encoder(INPUT_DIM, ENC_EMB_DIM, HID_DIM, DROPOUT)
     decoder = Decoder(OUTPUT_DIM, DEC_EMB_DIM, HID_DIM, DROPOUT)
@@ -118,14 +118,29 @@ if __name__ == "__main__":
     best_valid_loss = float("inf")
     os.makedirs("checkpoints", exist_ok=True)
 
+    train_losses, valid_losses = [], []
+
     for epoch in range(N_EPOCHS):
         train_loss = train_epoch(model, train_loader, optimizer, criterion)
         valid_loss = evaluate(model, valid_loader, criterion)
 
-        print(f"Epoch {epoch+1} | Train Loss: {train_loss:.3f} | Val Loss: {valid_loss:.3f}")
+        with open("logs_rnn.txt", "a") as f:
+            f.write(f"Epoch {epoch+1} | Train Loss: {train_loss:.3f} | Val Loss: {valid_loss:.3f}\n")
 
         if valid_loss < best_valid_loss:
             best_valid_loss = valid_loss
             torch.save(model.state_dict(), "checkpoints/rnn_attn_best.pt")
 
     print("✅ Training selesai, model terbaik disimpan di checkpoints/rnn_attn_best.pt")
+
+# ---- Plot loss curve ----
+
+import matplotlib.pyplot as plt
+
+plt.plot(train_losses, label="Train Loss")
+plt.plot(valid_losses, label="Validation Loss")
+plt.xlabel("Epochs")
+plt.ylabel("Loss")
+plt.legend()
+plt.savefig("loss_curve.png")
+plt.show()
