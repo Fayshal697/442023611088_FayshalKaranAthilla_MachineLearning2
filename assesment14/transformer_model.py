@@ -23,14 +23,16 @@ class TransformerModel(nn.Module):
         super().__init__()
         self.src_tok_emb = nn.Embedding(src_vocab_size, embed_size)
         self.tgt_tok_emb = nn.Embedding(tgt_vocab_size, embed_size)
-        self.positional_encoding = PositionalEncoding(embed_size)
+        self.positional_encoding = PositionalEncoding(embed_size, dropout)
+
+        self.dropout = nn.Dropout(dropout)   # ✅ tambahkan ini
 
         self.transformer = nn.Transformer(
             d_model=embed_size,
             nhead=num_heads,
             num_encoder_layers=num_layers,
             num_decoder_layers=num_layers,
-            dim_feedforward=512,   # <── harus sama seperti training
+            dim_feedforward=512,
             dropout=dropout,
             batch_first=True
         )
@@ -44,17 +46,14 @@ class TransformerModel(nn.Module):
         return self.fc_out(out)
 
     def encode(self, src):
-        src_seq_len = src.shape[1]
-        src_positions = torch.arange(0, src_seq_len, device=src.device).unsqueeze(0)
-        src_emb = self.dropout(self.src_tok_emb(src) + self.positional_encoding(src_positions))
-        return self.encoder(src_emb)
+        src_emb = self.positional_encoding(self.src_tok_emb(src))
+        return self.transformer.encoder(src_emb)
 
     def decode(self, memory, tgt):
-        tgt_seq_len = tgt.shape[1]
-        tgt_positions = torch.arange(0, tgt_seq_len, device=tgt.device).unsqueeze(0)
-        tgt_emb = self.dropout(self.tgt_tok_emb(tgt) + self.positional_encoding(tgt_positions))
-        out = self.decoder(tgt_emb, memory)
+        tgt_emb = self.positional_encoding(self.tgt_tok_emb(tgt))
+        out = self.transformer.decoder(tgt_emb, memory)
         return self.fc_out(out)
+
 
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model, dropout=0.1, max_len=100):
