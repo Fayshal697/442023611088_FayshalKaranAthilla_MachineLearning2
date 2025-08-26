@@ -1,0 +1,7 @@
+{
+  "src_lang": "en",
+  "tgt_lang": "id",
+  "vocab_size": 8000,
+  "valid_ratio": 0.05,
+  "test_ratio": 0.05
+}
